@@ -5,7 +5,7 @@
  * Plugin URI: https://bizinkonline.com
  * Author: Bizink
  * Author URI: https://bizinkonline.com
- * Version: 1.1
+ * Version: 1.1.1
  * Text Domain: bizink-client-sage
  * Domain Path: /languages
  */
@@ -21,9 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require 'plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 $myUpdateChecker = PucFactory::buildUpdateChecker('https://github.com/BizInk/bizpress-sage',__FILE__,'bizpress-sage-resources');
-// Set the branch that contains the stable release.
 $myUpdateChecker->setBranch('master');
-// Using a private repository, specify the access token 
 $myUpdateChecker->setAuthentication('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');
 
 if(is_plugin_active("bizpress-client/bizink-client.php")){

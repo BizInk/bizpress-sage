@@ -108,6 +108,7 @@ function bizink_sage_init(){
 
 add_action('parse_request','bizpress_sagexml_request', 10, 1);
 function bizpress_sagexml_request($wp){
+	$ending = substr(get_option('permalink_structure'), -1) == '/' ? '/':'';
 	if ( array_key_exists( 'bizpressxml', $wp->query_vars ) && $wp->query_vars['bizpressxml'] == 'sage_resources'){
 		$post = bizink_get_sage_page_object();
 		if( is_object( $post ) && get_post_type( $post ) == "page" ){
@@ -122,13 +123,13 @@ function bizpress_sagexml_request($wp){
 			echo '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 			
 			echo '<url>';
-			echo '<loc>'.get_home_url().'/'.$post->post_name.'</loc>';
+			echo '<loc>'.esc_url(get_home_url().'/'.$post->post_name.$ending).'</loc>';
 			echo '</url>';
 			
 			if(empty($data->posts) == false){
 				foreach($data->posts as $item){
 					echo '<url>';
-					echo '<loc>'.get_home_url().'/'.$post->post_name.'/'. $item->slug .'</loc>';
+					echo '<loc>'.esc_url(get_home_url().'/'.$post->post_name.'/'.$item->slug.$ending).'</loc>';
 					if($item->thumbnail){
 						echo '<image:image>';
 						echo '<image:loc>'. $item->thumbnail .'</image:loc>';
